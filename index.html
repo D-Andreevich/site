@@ -72,12 +72,12 @@
 
       document.getElementById('count').innerText = i
       if (i % 2) {
-        start(i * 11)
+        setTimeout(start, 1000 * i, i * 11)
       }
     }
   }
 
-  start(i)
+  setTimeout(start, 3000, i)
 
 </script>
 </body>
