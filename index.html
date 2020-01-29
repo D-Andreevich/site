@@ -37,13 +37,10 @@
       body: JSON.stringify(user)
     })
 
-    let result = await response.json()
-    console.log('response ', response)
-
   }
 </script>
 <script type="application/javascript">
-  let i = 3
+  let i = makeid(1)
   let getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max))
   }
@@ -59,25 +56,22 @@
   }
 
   function start (i) {
-    while (++i) {
-      let numberRandom = i + getRandomInt(i)
-      let user = {
-        email: `test${numberRandom}@test.com`,
-        password: 'qwe123',
-        phone: '+380' + getCode(i) + makeid(7),
-        username: `test${numberRandom}`,
-      }
-
-      let result = send(user)
-
-      document.getElementById('count').innerText = i
-      if (i % 2) {
-        setTimeout(start, 1000 * i, i * 11)
-      }
+    // while (++i) {
+    let numberRandom = i + makeid(4)
+    let user = {
+      email: `test${numberRandom}@test.com`,
+      password: 'qwe123',
+      phone: '+380' + getCode(i) + makeid(7),
+      username: `test${numberRandom}`,
     }
+    send(user)
+
+    document.getElementById('count').innerText = i
+    setTimeout(start, 350, ++i)
+    // }
   }
 
-  setTimeout(start, 3000, i)
+  setTimeout(start, 2000, i)
 
 </script>
 </body>
