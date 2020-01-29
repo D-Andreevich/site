@@ -7,10 +7,24 @@
 <body>
 <div>
     <h1>Спасибо за проявленное любопытство</h1>
-    <div id="count"></div> раз
+    <h1>
+        <b>
+            <div id="count">0</div>
+        </b> раз
+    </h1>
 </div>
 <script>
   'use strict'
+
+  function makeid (length) {
+    var result = ''
+    var characters = '0123456789'
+    var charactersLength = characters.length
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    }
+    return result
+  }
 
   async function send (user) {
     console.log('user->email ', user.email)
@@ -18,33 +32,45 @@
     let response = await fetch('http://api.development.vci-staging.piratecatleo.com/v1/auth/register', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json;charset=utf-8'
+        'Content-Type': 'application/json;'
       },
       body: JSON.stringify(user)
     })
 
     let result = await response.json()
-    alert(result.message)
+    console.log('response ', response)
+
   }
 </script>
 <script type="application/javascript">
-  let i = 0
+  let i = 3
   let getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max))
+  }
+  let getCode = (i) => {
+    switch (i) {
+      case i % 2:
+        return '99'
+      case i % 3:
+        return '66'
+      default:
+        return '95'
+    }
   }
 
   function start (i) {
     while (++i) {
-      let numberRandom = i + getRandomInt(i * 10)
+      let numberRandom = i + getRandomInt(i)
       let user = {
         email: `test${numberRandom}@test.com`,
         password: 'qwe123',
-        phone: '+380997787988',
-        username: 'test1',
+        phone: '+380' + getCode(i) + makeid(7),
+        username: `test${numberRandom}`,
       }
 
       let result = send(user)
 
+      document.getElementById('count').innerText = i
       if (i % 2) {
         start(i * 11)
       }
